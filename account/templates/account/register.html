@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style type="text/css">
+.form-signin {
+  max-width: 330px;
+  padding: 1rem;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: 10px;
+
+}
+
+.form-signin input[type="text"] {
+  margin-bottom: 10px;
+
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+}
+.h3{
+	text-align: center;
+}
+
+</style>
+<main class="form-signin w-100 m-auto">
+	<form method="post">{% csrf_token %}
+		<div class="d-flex flex-column pb-3">
+			<img class="img-fluid mx-auto d-block" src="{% static 'image.jpg' %}" width="72" height="72">
+		</div>
+	
+	    <h1 class="h3 mb-3 fw-normal">Register an Account</h1>
+	
+	    <div class="form-floating">
+	      <input type="email" name="email" class="form-control" id="floatingEmail" placeholder="Email Address" autofocus required>
+	      <label for="floatingEmail">Email address</label>
+	    </div>
+	
+	    <div class="form-floating">
+	      <input type="password" name="password1" class="form-control" id="floatingPassword1" placeholder="Password" required>
+	      <label for="floatingPassword1">Enter a new password</label>
+	    </div>
+
+	     <div class="form-floating">
+	      <input type="password" name="password2" class="form-control" id="floatingPassword2" placeholder="Confirm Password" required>
+	      <label for="floatingPassword2">Confirm your new password</label>
+	    </div>
+	    
+	    {% for field in registration_form %}
+			{% for error in field.errors %}
+					<p style="color:red;">{{error}}</p>
+			{% endfor %}
+		{% endfor %}
+	
+		{% if registration_form.non_field_errors %}
+			<div style="color:red;">
+				<p>{{registration_form.non_field_errors}}</p>
+			</div>
+		{% endif %}
+	
+	    <button class="btn btn-primary w-100 py-2" type="submit">Register</button>
+	</form>
+</main>
+
+{%endblock content%}
