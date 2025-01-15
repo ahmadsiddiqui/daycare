@@ -28,6 +28,7 @@ class MyAccountManager(BaseUserManager):
 
 
 class Account(AbstractBaseUser):
+
 	email 					= models.EmailField(verbose_name="email", max_length=60, unique=True)
 	first_name				= models.CharField(verbose_name ="first name", max_length = 30, default= "")
 	date_joined				= models.DateTimeField(verbose_name='date joined', auto_now_add=True)

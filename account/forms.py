@@ -12,6 +12,7 @@ class RegistrationForm(UserCreationForm):
 		model = Account
 		fields = ("email","password1","password2")
 
+
 class AccountAuthenticationForm(forms.ModelForm):
 
 	password = forms.CharField(label='Password', widget=forms.PasswordInput)

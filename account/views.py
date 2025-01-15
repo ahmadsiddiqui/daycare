@@ -1,14 +1,18 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
-from account.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
+from account.forms import AccountAuthenticationForm, AccountUpdateForm, RegistrationForm
 from django.views.decorators.csrf import csrf_protect
+from django.core.mail import send_mail
+from django.http import HttpResponse
 
 
 @csrf_protect
 def registration_view(request):
+	if not request.user.is_staff:
+		return(HttpResponse("Staff login Required!"))
 	context= {}
+	form = RegistrationForm(request.POST)
 	if request.POST:
-		form = RegistrationForm(request.POST)
 		if form.is_valid():
 			form.save()
 			email = form.cleaned_data.get('email')
@@ -21,7 +25,23 @@ def registration_view(request):
 	else:
 		form = RegistrationForm()
 		context['registration_form'] = form
-	return render(request, 'account/register.html', context)
+	return render(request, 'account/registration.html', context)
+
+
+def registration_request_view(request):
+	context ={}
+	if request.POST:
+		name = request.POST['name']
+		email = request.POST['email']
+		#send_mail("ADD REQUEST", name, email,["ahmad.siddiqui024@gmail.com"], fail_silently=False)
+		f = open('request_file.csv', 'a')
+		f.write(name)
+		f.write(",")
+		f.write(email)
+		f.write("\n")
+		f.close()
+	return render(request, 'account/register_request.html')
+
 
 def logout_view(request):
 	logout(request)

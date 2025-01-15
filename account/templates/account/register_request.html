@@ -36,21 +36,17 @@
 			<img class="img-fluid mx-auto d-block" src="{% static 'image.jpg' %}" width="72" height="72">
 		</div>
 	
-	    <h1 class="h3 mb-3 fw-normal">Register an Account</h1>
+	    <h1 class="h3 mb-3 fw-normal">Request to Register an Account</h1>
+		<p> If you have not been given account credentials use this form to request access, expect an email back within 72 hours pending human verification.</p>
 	
-	    <div class="form-floating">
+		<div class="form-floating">
+			<input type="text" name="name" class="form-control" id="floatingname" placeholder="Name" autofocus required>
+			<label for="floatingName">Name</label>
+		</div>
+	
+		<div class="form-floating">
 	      <input type="email" name="email" class="form-control" id="floatingEmail" placeholder="Email Address" autofocus required>
 	      <label for="floatingEmail">Email address</label>
-	    </div>
-	
-	    <div class="form-floating">
-	      <input type="password" name="password1" class="form-control" id="floatingPassword1" placeholder="Password" required>
-	      <label for="floatingPassword1">Enter a new password</label>
-	    </div>
-
-	     <div class="form-floating">
-	      <input type="password" name="password2" class="form-control" id="floatingPassword2" placeholder="Confirm Password" required>
-	      <label for="floatingPassword2">Confirm your new password</label>
 	    </div>
 	    
 	    {% for field in registration_form %}

@@ -1,2 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block content %}
+{% if user.is_staff %}
+<a class="btn btn-primary m-3" href="{% url 'account_registration' %}"> Create Account </a>
+<a class="btn btn-primary m-3" href="{% url 'upload' %}"> Upload Image </a>
+{% endif %}
+<a class="btn btn-primary m-3" href="{% url 'upload' %}"> Upload Image </a>
+<a class="btn btn-primary m-3" href="{% url 'show_images' %}"> Show Image </a>
+{% endblock content %}
