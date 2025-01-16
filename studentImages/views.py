@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from studentImages.forms import UploadImageFormAdmin, UploadImageFormParent
 from studentImages.models import Image
 from account.models import Account
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 
 
@@ -13,8 +14,10 @@ def show_images_view(request):
 	context={}
 	#images = Image.objects.filter(account_id=request.user.id)
 	images = request.user.image_set.all()
+
 	context['images'] = images
 	return render(request, 'showImages.html', context)
+	
 
 def image_upload(request):
 	if not request.user.is_authenticated:
@@ -48,6 +51,16 @@ def image_upload(request):
 		context['form'] = form
 
 	return render(request, "uploadImage.html", context)
+def delete_image_view(request,id):
+	obj = get_object_or_404(Image, pk=id)
+	if (request.user==obj.account):
+		obj.delete()
+		return redirect("show_images")
+
+	else:
+		return HttpResponse("Prohibited")
+
+	
 
 def success(request):
 	return HttpResponse("Image uploaded successfully!")

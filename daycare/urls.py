@@ -1,19 +1,3 @@
-"""
-URL configuration for daycare project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
 from account.views import *
@@ -27,7 +11,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', home, name="home"),
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name="admin"),
     path('account/', account_view, name="account"),
     path('login/', login_view, name="login"),
     path('logout/', logout_view, name="logout"),
@@ -37,6 +21,7 @@ urlpatterns = [
     path('success', success, name="success"),
     path('account/registration', registration_view, name="account_registration"),
     path('studentImages/show',show_images_view,name='show_images'),
+    path('studentImages/delete/<int:id>',delete_image_view, name='delete_image'),
 
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_done.html'), 
@@ -56,4 +41,5 @@ urlpatterns = [
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

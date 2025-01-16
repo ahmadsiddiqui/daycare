@@ -22,10 +22,13 @@
 
 		{% if user.is_authenticated %}
 
-		<span class="fs-4 px-2">Hello, {{request.user.first_name}}!</span>
+		<span class="fs-4 px-2">Hello, {{ user.first_name }}!</span>
 
 		{% endif %}
     </a>
+	<div class="container" style="max-width:100px">
+		{% include 'logo.svg' %}
+	</div>
     <div class="search-bar mt-sm-2 mr-2 px-2">
     	<form method="get">
     		<input type="text" class="form-control" name="q" id="id_q" placeholder="Search...">
