@@ -11,12 +11,20 @@ def show_images_view(request):
 	if not request.user.is_authenticated:
 		return redirect("login")
 	
-	context={}
-	#images = Image.objects.filter(account_id=request.user.id)
-	images = request.user.image_set.all()
+	context = {}
+	
+	if request.user.is_admin:
+		images = Image.objects.all()
+		context['admin']= True
+		
+	else:
+		images = request.user.image_set.all()
+		context['admin']= false
 
 	context['images'] = images
+
 	return render(request, 'showImages.html', context)
+
 	
 
 def image_upload(request):
@@ -53,7 +61,7 @@ def image_upload(request):
 	return render(request, "uploadImage.html", context)
 def delete_image_view(request,id):
 	obj = get_object_or_404(Image, pk=id)
-	if (request.user==obj.account):
+	if (request.user==obj.account or request.user.is_admin):
 		obj.delete()
 		return redirect("show_images")
 

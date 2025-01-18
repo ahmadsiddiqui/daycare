@@ -2,8 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from account.forms import AccountAuthenticationForm, AccountUpdateForm, RegistrationForm
 from django.views.decorators.csrf import csrf_protect
-from django.core.mail import send_mail
-from django.http import HttpResponse
+
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import is_valid_path
+from urllib.parse import urlparse
+
 
 
 @csrf_protect
@@ -47,8 +50,9 @@ def logout_view(request):
 	logout(request)
 	return redirect('home')
 
-@csrf_protect
+
 def login_view(request):
+	next_url = request.GET.get('next', '/')
 	context={}
 
 	user = request.user
@@ -65,7 +69,12 @@ def login_view(request):
 
 			if user:
 				login(request,user)
-				return redirect("home")
+				next_url = request.POST.get('next',next_url)
+				parsed = urlparse(next_url)
+				if not parsed.netloc and is_valid_path(next_url):
+					return HttpResponseRedirect(next_url)
+				else:
+					return HttpResponseRedirect('/')
 	else:
 		form = AccountAuthenticationForm()
 

@@ -3,6 +3,7 @@ from django.urls import path
 from account.views import *
 from personal.views import *
 from studentImages.views import *
+from studentVaccinations.views import *
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib.auth import views as auth_views
 from django.conf import settings
@@ -22,7 +23,8 @@ urlpatterns = [
     path('account/registration', registration_view, name="account_registration"),
     path('studentImages/show',show_images_view,name='show_images'),
     path('studentImages/delete/<int:id>',delete_image_view, name='delete_image'),
-
+    path('studentVaccinations/create', create_vaccination, name="create_vaccination"),
+    path('studentVaccinations/delete/<int:id>', delete_vaccination, name="delete_vaccination"),
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_done.html'), 
         name='password_change_done'),
