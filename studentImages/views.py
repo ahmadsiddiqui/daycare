@@ -19,7 +19,7 @@ def show_images_view(request):
 		
 	else:
 		images = request.user.image_set.all()
-		context['admin']= false
+		context['admin']= False
 
 	context['images'] = images
 

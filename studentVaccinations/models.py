@@ -13,5 +13,5 @@ class Vaccination(models.Model):
 class VaccinationRecord(models.Model):
 	account					= models.ForeignKey(Account, on_delete=models.PROTECT)
 	vaccination				= models.ForeignKey(Vaccination, on_delete=models.CASCADE)
-	date_administered		= models.DateField()
+	#date_administered		= models.DateField()
 

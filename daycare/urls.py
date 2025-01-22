@@ -25,6 +25,8 @@ urlpatterns = [
     path('studentImages/delete/<int:id>',delete_image_view, name='delete_image'),
     path('studentVaccinations/create', create_vaccination, name="create_vaccination"),
     path('studentVaccinations/delete/<int:id>', delete_vaccination, name="delete_vaccination"),
+    path('studentVaccinations/record', record_vaccination, name="record_vaccination"),
+
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_done.html'), 
         name='password_change_done'),
