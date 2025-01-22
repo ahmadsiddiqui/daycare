@@ -9,7 +9,7 @@ class ImageInline(admin.TabularInline):
 	model = Image
 
 class AccountAdmin(UserAdmin):
-	list_display = ('email','date_joined','last_login','is_admin','is_parent','is_staff')
+	list_display = ('email','date_joined','last_login','is_admin','is_parent','is_staff','date_of_birth',)
 	search_fields = ('email', 'is_admin')
 	readonly_fields = ('date_joined', 'last_login')
 	add_form = UserCreationForm

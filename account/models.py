@@ -38,6 +38,7 @@ class Account(AbstractBaseUser):
 	is_parent				= models.BooleanField(default=True)
 	is_staff				= models.BooleanField(default=False)
 	is_superuser			= models.BooleanField(default=False)
+	date_of_birth			= models.DateField(null=True, blank= True)
 
 	USERNAME_FIELD = 'email'
 

@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from studentVaccinations.forms import CreateVaccinationFormAdmin, RecordVaccinationFormAdmin
+from studentVaccinations.forms import CreateVaccinationFormAdmin, RecordVaccinationFormAdmin, GetVaccinationRecordAdmin
 from studentVaccinations.models import Vaccination, VaccinationRecord
 from django.contrib.auth.decorators import login_required
 from account.models import Account 
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.utils import timezone
 import calendar
 import datetime
 
@@ -61,7 +62,7 @@ def record_vaccination(request):
 		context['form']=form
 		vaccineList = Vaccination.objects.all()
 		context['vaccineList'] = vaccineList
-		accountList = Account.objects.all()
+		accountList = Account.objects.all().filter(is_admin=False)
 		context['accountList'] = accountList
 		#months=calendar.month_name[1:]
 		#context['months']=months
@@ -80,14 +81,29 @@ def vaccination_report(request):
 	if not request.user.is_authenticated:
 		return redirect("login")
 	if request.user.is_admin:
-		form = GetVaccinationRecordAdmin()
 		context = {}
+		context['accountList'] = Account.objects.all().filter(is_admin=False)
+		form = GetVaccinationRecordAdmin()
+		
 		if request.method == 'POST':
 			form = GetVaccinationRecordAdmin(request.POST)
 			if form.is_valid():
-				account = form.account			
-		vaccinationRecord = VaccinationRecord.objects.all().filter(account=account)
-		context['vaccinationRecord'] = vaccinationRecord
-		return render (request, "vaccination_record.html", context)
+				account = form.cleaned_data["account"]			
+				vaccinationRecord = VaccinationRecord.objects.all().filter(account=account)
+				context['account'] = account
+				today = timezone.now()
+				dob = account.date_of_birth
+				age_in_years = today.year - dob.year
+				age_in_months = today.month - dob.month
+				if age_in_months < 0:
+					age_years -= 1
+					age_months += 12
+				age_in_months += (age_in_years * 12)
+				context['age_in_months'] = age_in_months
+				context['vaccinationRecord'] = vaccinationRecord
+				
+			else:
+				form = GetVaccinationRecordAdmin()
 	else:
 		return HttpResponse("Prohibited")
+	return render (request, "vaccination_report.html", context)

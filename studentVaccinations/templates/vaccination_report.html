@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style type="text/css">
+    .form-signin {
+        max-width: 330px;
+        padding: 1rem;
+    }
+
+    .table-container {
+        max-width: 330px;
+        padding: 1rem;
+    }
+
+    .form-signin .form-floating:focus-within {
+        z-index: 2;
+    }
+
+    .submit-button {
+        max-width: 200px;
+    }
+
+    .h3 {
+        text-align: center;
+    }
+</style>
+<main class="form-signin w-100 m-auto">
+
+    <form method="post">
+        {% csrf_token %}
+
+        <h1 class="h3 mb-3 fw-normal">View Vaccination Records</h1>
+
+        <div class="form-floating">
+            <select name="account" class="form-select  mb-1 mt-3" required id="id_account" maxlength="100">
+                {% for account in accountList %}
+                <option value="{{account.id}}">
+                    {{account}}
+                </option>
+                {% endfor %}
+            </select>
+            <label for="id_account">Student Account</label>
+        </div>
+        <button class="btn btn-primary w-50 py-2" type="submit"> View Record</button>
+    </form>
+    <p>age: {{account.date_of_birth}} </p>
+    <p>months: {{age_in_months}}</p>
+</main>
+
+<div class="table-container w-100 m-auto">
+    {% if vaccinationRecord %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Vaccine</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in vaccinationRecord %}
+            <tr>
+                <td class="py-2">{{ record.vaccination.name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No vaccinations recorded for {{account.first_name}} </p>
+    {% endif %}
+</div>
+{% endblock content %}
