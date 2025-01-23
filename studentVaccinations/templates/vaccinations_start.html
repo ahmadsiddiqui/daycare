@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<a class="btn btn-primary m-3" href="{% url 'create_vaccination' %}"> Create Vaccination </a>
+<a class="btn btn-primary m-3" href="{% url 'record_vaccination' %}"> Record Vaccination </a>
+<a class="btn btn-primary m-3" href="{% url 'vaccination_report' %}"> View Report</a>
+<a class="btn btn-primary m-3" href="{% url 'missing_vaccinations' %}"> Missing Vaccinations </a>
+{% endblock content %}

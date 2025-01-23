@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
+
 class MyAccountManager(BaseUserManager):
 	def create_user(self, email, password=None):
 		if not email:
@@ -39,6 +40,7 @@ class Account(AbstractBaseUser):
 	is_staff				= models.BooleanField(default=False)
 	is_superuser			= models.BooleanField(default=False)
 	date_of_birth			= models.DateField(null=True, blank= True)
+	missing_vaccination		= models.ForeignKey('studentVaccinations.Vaccination', on_delete=models.CASCADE, null=True)
 
 	USERNAME_FIELD = 'email'
 

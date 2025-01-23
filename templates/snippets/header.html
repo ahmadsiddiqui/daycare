@@ -17,23 +17,21 @@
 </style>
 
 <!-- Header -->
-<div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-3 mt-3 me-4 border-bottom">
-	<a href="/" class="d-flex align-items-center link-body-emphasis text-decoration-none">
+<div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-3 mt-3 me-3 border-bottom">
+    <a href="/" class="d-flex align-items-center link-body-emphasis text-decoration-none">
+        <div class="container" style="max-width:100px">
+            {% include 'logo.svg' %}
+        </div>
+    </a>
 
 		{% if user.is_authenticated %}
 
 		<span class="fs-4 px-2">Hello, {{ user.first_name }}!</span>
 
 		{% endif %}
-    </a>
-	<div class="container" style="max-width:100px">
-		{% include 'logo.svg' %}
-	</div>
-    <div class="search-bar mt-sm-2 mr-2 px-2">
-    	<form method="get">
-    		<input type="text" class="form-control" name="q" id="id_q" placeholder="Search...">
-    	</form>
-    </div>
+    
+	
+    
 
     <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
 
@@ -49,6 +47,8 @@
     	{% endif %}
 
     </nav>
+
 </div>
+
 
 <!-- Header -->

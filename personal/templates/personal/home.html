@@ -5,8 +5,15 @@
 <a class="btn btn-primary m-3" href="{% url 'account_registration' %}"> Create Account </a>
 <a class="btn btn-primary m-3" href="{% url 'upload' %}"> Upload Image </a>
 <a class="btn btn-primary m-3" href="{% url 'admin:index' %}"> Configuration </a>
-<a class="btn btn-primary m-3" href="{% url 'create_vaccination' %}"> Create Vaccination </a>
+
+<a href="{% url 'vaccinations_start' %}">
+    <div class="container" style="max-width:100px">
+        {% include 'vaccine.svg' %}
+    </div> 
+</a>
+
 
 {% endif %}
 <a class="btn btn-primary m-3" href="{% url 'show_images' %}"> Show Image </a>
+<a class="btn btn-primary m-3" href="{% url 'vaccination_report' %}"> Vaccination Report </a>
 {% endblock content %}

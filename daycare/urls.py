@@ -12,6 +12,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', home, name="home"),
+    path('privacy', privacy_policy, name="privacy"),
     path('admin/', admin.site.urls, name="admin"),
     path('account/', account_view, name="account"),
     path('login/', login_view, name="login"),
@@ -27,6 +28,9 @@ urlpatterns = [
     path('studentVaccinations/delete/<int:id>', delete_vaccination, name="delete_vaccination"),
     path('studentVaccinations/record', record_vaccination, name="record_vaccination"),
     path('studentVaccinations/view_report',vaccination_report, name="vaccination_report"),
+    path('studentVaccinations/delete_record/<int:id>',delete_record, name="delete_record"),
+    path('studentVaccinations/missing_vaccinations',missing_vaccinations, name="missing_vaccinations"),
+    path('studentVaccinations/',vaccinations_start, name="vaccinations_start"),
 
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_done.html'), 
