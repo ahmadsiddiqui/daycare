@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'personal',
     'studentImages',
     'studentVaccinations',
+    'dailyReport',
 ]
 AUTH_USER_MODEL = 'account.Account'
 MIDDLEWARE = [

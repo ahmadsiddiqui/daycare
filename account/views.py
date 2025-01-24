@@ -12,7 +12,7 @@ from urllib.parse import urlparse
 @csrf_protect
 def registration_view(request):
 	if not request.user.is_staff:
-		return(HttpResponse("Staff login Required!"))
+		return(HttpResponse("prohibited"))
 	context= {}
 	form = RegistrationForm(request.POST)
 	if request.POST:
@@ -106,7 +106,7 @@ def account_view(request):
 			}
 		)
 	context['account_form'] = form
-
+	context['account'] = request.user
 	
 	return render(request, "account/account.html", context)
 

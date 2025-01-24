@@ -3,14 +3,18 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
 
 from account.models import Account
+import datetime
 
+def year_choices():
+    return [(r) for r in range(datetime.date.today().year-10, datetime.date.today().year+1)]
 
 class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(max_length = 60, help_text =" Required, Add a valid email address")
+	date_of_birth = forms.DateField(required=True, widget=forms.SelectDateWidget(years=year_choices()))
 
 	class Meta:
 		model = Account
-		fields = ("email","password1","password2")
+		fields = ("first_name","last_name","email","password1","password2","date_of_birth",)
 
 
 class AccountAuthenticationForm(forms.ModelForm):

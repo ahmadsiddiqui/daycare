@@ -26,7 +26,7 @@
 
 		{% if user.is_authenticated %}
 
-		<span class="fs-4 px-2">Hello, {{ user.first_name }}!</span>
+		<span class="fs-4 px-2">Hello, {{ user.first_name }}&nbsp{{user.last_name}}!</span>
 
 		{% endif %}
     

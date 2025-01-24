@@ -13,7 +13,24 @@
 </a>
 
 
+{% else %}
+<div class="container w-50 m-1">
+    <div class="row">
+        <div class="col-sm">
+            <a href="{% url 'show_images' %}">
+                <div class="container" style="max-width:100px">
+                    {% include 'image.svg' %}
+                </div>
+            </a>
+        </div>
+        <div class="col-sm">
+            <a href="{% url 'vaccination_report' %}">
+                <div class="container" style="max-width:100px">
+                    {% include 'vaccine.svg' %}
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
 {% endif %}
-<a class="btn btn-primary m-3" href="{% url 'show_images' %}"> Show Image </a>
-<a class="btn btn-primary m-3" href="{% url 'vaccination_report' %}"> Vaccination Report </a>
 {% endblock content %}

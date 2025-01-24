@@ -31,27 +31,28 @@
 
 </style>
 <main class="form-signin w-100 m-auto">
-	<form method="post">{% csrf_token %}
-	
-	    <h1 class="h3 mb-3 fw-normal">Change account settings</h1>
-	
-	    <div class="form-floating">
-	      <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com"
-	      value="{{account_form.initial.email}}" required autofocus>
-	      <label for="floatingInput">Enter a new email address</label>
-	    </div>
-	
-	  
-	    {% for field in account_form %}
-			{% for error in field.errors %}
-					<p style="color:red;">{{error}}</p>
-			{% endfor %}
+	<form method="post">
+		{% csrf_token %}
+
+		<h1 class="h3 mb-3 fw-normal">Change account settings</h1>
+
+		<div class="form-floating">
+			<input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+				   value="{{account_form.initial.email}}" required autofocus>
+			<label for="floatingInput">Enter a new email address</label>
+		</div>
+
+
+		{% for field in account_form %}
+		{% for error in field.errors %}
+		<p style="color:red;">{{error}}</p>
 		{% endfor %}
-	
+		{% endfor %}
+
 		{% if account_form.non_field_errors %}
-			<div style="color:red;">
-				<p>{{account_form.non_field_errors}}</p>
-			</div>
+		<div style="color:red;">
+			<p>{{account_form.non_field_errors}}</p>
+		</div>
 		{% endif %}
 
 		{% if success_message %}
@@ -61,8 +62,8 @@
 		{% else %}
 		<p style="color:red;">Changes will not be made until you click Save Changes</p>
 		{% endif %}
-	
-	    <button class="btn btn-primary w-100 py-2" type="submit">Save Changes</button>
+
+		<button class="btn btn-primary w-100 py-2" type="submit">Save Changes</button>
 	</form>
 
 	<div class="d-flex flex-column">
@@ -70,7 +71,12 @@
 		<a class="m-auto" href="{% url 'password_change' %}">Change password</a>
 	</div>
 
-	
+	<p>{{account.first_name}}</p>
+	<p>{{account.last_name}}</p>
+	<p>{{account.email}}</p>
+	<p>{{account.date_of_birth}}</p>
 </main>
+
+
 
 {% endblock content %}

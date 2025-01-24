@@ -4,6 +4,7 @@ from account.views import *
 from personal.views import *
 from studentImages.views import *
 from studentVaccinations.views import *
+from dailyReport.views import *
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib.auth import views as auth_views
 from django.conf import settings
@@ -31,6 +32,7 @@ urlpatterns = [
     path('studentVaccinations/delete_record/<int:id>',delete_record, name="delete_record"),
     path('studentVaccinations/missing_vaccinations',missing_vaccinations, name="missing_vaccinations"),
     path('studentVaccinations/',vaccinations_start, name="vaccinations_start"),
+    path('dailyReport/create', create_daily_report, name="create_daily_report"),
 
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/password_change_done.html'), 
