@@ -1,9 +1,38 @@
 {% extends 'base.html'%}
 {% block content %}
-<form method="post">
-    {%csrf_token%}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
-</form>
+<style type="text/css">
+    .form {
+        max-width: 330px;
+        padding: 1rem;
+    }
+
+    .table-container {
+        max-width: 330px;
+        padding: 1rem;
+    }
+
+    .form .form-floating:focus-within {
+        z-index: 2;
+    }
+
+    .submit-button {
+        max-width: 200px;
+    }
+
+    .h3 {
+        text-align: center;
+    }
+</style>
+
+<main class="form w-100 m-auto">
+    <form method="post">
+        {%csrf_token%}
+       
+        {{form.as_p}}
+        <button class="btn btn-primary w-100" type="submit">Submit</button>
+    </form>
+    
+</main>
+
 
 {% endblock content %}

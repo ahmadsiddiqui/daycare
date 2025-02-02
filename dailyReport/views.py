@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from dailyReport.models import DailyReport
 from dailyReport.forms import CreateDailyReportAdmin
+from account.models import Account
 
 # Create your views here.
 
@@ -19,6 +20,7 @@ def create_daily_report(request):
 			return redirect(create_daily_report)
 		else:
 			form = CreateDailyReportAdmin()
+		context['accountList']=Account.objects.filter(is_admin=False)
 		context['form'] = form
 	return render(request, 'create_daily_report.html',context)
 def view_daily_report(request):

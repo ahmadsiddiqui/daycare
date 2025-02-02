@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+import pyotp
 
 
 class MyAccountManager(BaseUserManager):
@@ -15,10 +16,14 @@ class MyAccountManager(BaseUserManager):
 		return user
 
 	def create_superuser(self, email, password):
+		if not password:
+			raise ValueError("Superusers must have a password.")
 		user = self.create_user(
 				email=self.normalize_email(email),
 				password = password,
 				)
+
+		user.mfa_hash = pyotp.random_base32()
 		user.is_admin = True
 		user.is_staff = True
 		user.is_superuser = True
@@ -41,7 +46,8 @@ class Account(AbstractBaseUser):
 	is_staff				= models.BooleanField(default=False)
 	is_superuser			= models.BooleanField(default=False)
 	date_of_birth			= models.DateField(null=True, blank= True)
-	missing_vaccination		= models.ForeignKey('studentVaccinations.Vaccination', on_delete=models.CASCADE, null=True)
+	missing_vaccination		= models.ForeignKey('studentVaccinations.Vaccination', on_delete=models.CASCADE, null=True, blank = True)
+	
 
 	USERNAME_FIELD = 'email'
 

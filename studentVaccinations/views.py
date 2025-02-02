@@ -108,7 +108,7 @@ def vaccination_report(request):
 	vaccinationRecord = VaccinationRecord.objects.filter(account=account)
 	if not request.user.is_authenticated:
 		return redirect("login")
-	if request.user.is_admin:
+	if not request.user.is_admin:
 		context = {}
 		context['accountList'] = Account.objects.all().filter(is_admin=False)
 		form = GetVaccinationRecordAdmin()

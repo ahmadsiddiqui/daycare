@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,14 +22,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-c5ojw(3ln-c9+2j&f1nb%4l!n&^ef5czq_a)3i-^!c+%_r(3ov'
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
 
+SECRET_KEY = os.environ['SECRET_KEY']
+DB_LOGIN = os.environ['DB_LOGIN']
+DB_PASSWORD = os.environ['DB_PASSWORD']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
+USE_L10N = False
+DATE_INPUT_FORMATS = ['%m/%d/%Y']
 # Application definition
 
 LOGGING = {
@@ -54,6 +60,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'django_advance_thumbnail',
+    'django_archive',
     'account',
     'personal',
     'studentImages',
@@ -95,10 +102,23 @@ WSGI_APPLICATION = 'daycare.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+#DATABASES = {
+ #   'default': {
+  #      'ENGINE': 'django.db.backends.sqlite3',
+   #     'NAME': BASE_DIR / 'db.sqlite3',
+    #}
+#}
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'asid',
+        'PASSWORD':'n68y4XUDw3NuhKz',
+        'HOST': 'daycare-db.crqes2u08jk4.us-east-2.rds.amazonaws.com',
+        'PORT': '5432',
+
+
     }
 }
 

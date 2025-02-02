@@ -10,11 +10,14 @@ def year_choices():
 
 class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(max_length = 60, help_text =" Required, Add a valid email address")
-	date_of_birth = forms.DateField(required=True, widget=forms.SelectDateWidget(years=year_choices()))
+	#date_of_birth = forms.DateField(required=True, widget=forms.SelectDateWidget(years=year_choices()))
 
 	class Meta:
 		model = Account
 		fields = ("first_name","last_name","email","password1","password2","date_of_birth",)
+		widgets = {
+			'date_of_birth':forms.DateInput(attrs={'type':'date', 'class':'form-control'}),
+		}
 
 
 class AccountAuthenticationForm(forms.ModelForm):

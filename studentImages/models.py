@@ -8,7 +8,7 @@ from django.dispatch import receiver
 
 class Image(models.Model):
 	title		=models.CharField(max_length = 64, null=False, blank=False, default="unnamed")
-	account		=models.ForeignKey(Account, on_delete=models.CASCADE)
+	account		=models.ForeignKey(Account, on_delete=models.CASCADE, null = False)
 	image		=models.ImageField(upload_to = "uploads/", null=True, blank=True)
 	date		=models.DateTimeField(default=timezone.now)
 	thumbnail	=AdvanceThumbnailField(source_field='image', upload_to="thumbnails/", size=(300,300), null=True, blank=True)

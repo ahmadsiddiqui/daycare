@@ -10,6 +10,8 @@ class ImageInline(admin.TabularInline):
 
 class AccountAdmin(UserAdmin):
 	list_display = ('email','date_joined','last_login','is_admin','is_parent','is_staff','date_of_birth',)
+	
+	#list_editable = ('is_admin','is_parent','is_staff',)
 	search_fields = ('email', 'is_admin')
 	readonly_fields = ('date_joined', 'last_login')
 	add_form = UserCreationForm
@@ -19,7 +21,7 @@ class AccountAdmin(UserAdmin):
     (
         None,
         {
-            "fields": ("email","password1","password2","is_admin","is_parent","is_staff"),
+            "fields": ("email","password1","password2","is_admin","is_parent","is_staff",'date_of_birth',),
         }, 
     ),
 	)

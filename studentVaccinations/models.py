@@ -11,10 +11,10 @@ class Vaccination(models.Model):
 		return self.name
 	
 class VaccinationRecord(models.Model):
-	account					= models.ForeignKey(Account, on_delete=models.PROTECT)
+	account					= models.ForeignKey(Account, on_delete=models.CASCADE)
 	vaccination				= models.ForeignKey(Vaccination, on_delete=models.CASCADE)
 	#date_administered		= models.DateField()
 
 class MissingVaccination(models.Model):
-	account					= models.ForeignKey(Account, on_delete=models.PROTECT)
+	account					= models.ForeignKey(Account, on_delete=models.CASCADE)
 	vaccination				= models.ForeignKey(Vaccination, on_delete=models.CASCADE)

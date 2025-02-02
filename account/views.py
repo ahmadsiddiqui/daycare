@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from account.forms import AccountAuthenticationForm, AccountUpdateForm, RegistrationForm
 from django.views.decorators.csrf import csrf_protect
+import pyotp
+import time
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import is_valid_path
@@ -80,6 +82,7 @@ def login_view(request):
 
 	context['login_form'] = form
 	return render(request, 'account/login.html', context)
+
 
 @csrf_protect
 def account_view(request):
