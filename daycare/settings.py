@@ -32,7 +32,7 @@ DB_PASSWORD = os.environ['DB_PASSWORD']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost']
 USE_L10N = False
 DATE_INPUT_FORMATS = ['%m/%d/%Y']
 # Application definition
@@ -66,8 +66,23 @@ INSTALLED_APPS = [
     'studentImages',
     'studentVaccinations',
     'dailyReport',
+    'storages',
 ]
+
+AWS_ACCESS_KEY_ID = 'AKIAQ4NSBRBE4QH5LXSI'
+AWS_SECRET_ACCESS_KEY = '71C/TZ2HTnpb+F3G5KZDCBgDrARPWzTbcclPp7q4'
+AWS_STORAGE_BUCKET_NAME = 'asid-daycare-bucket'
+AWS_S3_REGION_NAME = 'us-east-2'  # e.g., us-east-1
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+# For serving static files directly from S3
+
+AWS_S3_USE_SSL = True
+AWS_S3_VERIFY = True
+
 AUTH_USER_MODEL = 'account.Account'
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -153,17 +168,21 @@ USE_I18N = True
 
 USE_TZ = True
 
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT= os.path.join(BASE_DIR, 'static')
-STATICFILES_DIR = {
-    os.path.join(BASE_DIR, 'public/static')
-}
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+#STATIC_URL = '/static/'
+#STATIC_ROOT= os.path.join(BASE_DIR, 'static')
+#STATICFILES_DIR = {
+#    os.path.join(BASE_DIR, 'public/static')
+#}
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
